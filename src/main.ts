@@ -21,6 +21,10 @@ import TypescriptPage from './pages/TypescriptPage.vue';
 import PerformancePage from './pages/PerformancePage.vue';
 import ChecklistPage from './pages/ChecklistPage.vue';
 import SkillMatrixPage from './pages/SkillMatrixPage.vue';
+import DecisionSimulatorPage from './pages/DecisionSimulatorPage.vue';
+import RiskAssessmentPage from './pages/RiskAssessmentPage.vue';
+import TrainingPlanPage from './pages/TrainingPlanPage.vue';
+import HybridConfigurationPage from './pages/HybridConfigurationPage.vue';
 
 // 创建路由
 const routes = [
@@ -42,7 +46,11 @@ const routes = [
   { path: '/typescript', component: TypescriptPage, meta: { title: 'TypeScript 集成 - Vue 3 升级指南' } },
   { path: '/performance', component: PerformancePage, meta: { title: '性能优化 - Vue 3 升级指南' } },
   { path: '/checklist', component: ChecklistPage, meta: { title: '检查清单 - Vue 3 升级指南' } },
-  { path: '/skill-matrix', component: SkillMatrixPage, meta: { title: '技能矩阵 - Vue 3 升级指南' } }
+  { path: '/skill-matrix', component: SkillMatrixPage, meta: { title: '技能矩阵 - Vue 3 升级指南' } },
+  { path: '/decision-simulator', component: DecisionSimulatorPage, meta: { title: '决策模拟器 - Vue 3 升级指南' } },
+  { path: '/risk-assessment', component: RiskAssessmentPage, meta: { title: '风险评估 - Vue 3 升级指南' } },
+  { path: '/training-plan', component: TrainingPlanPage, meta: { title: '培训计划 - Vue 3 升级指南' } },
+  { path: '/hybrid-config', component: HybridConfigurationPage, meta: { title: '混合开发配置 - Vue 3 升级指南' } }
 ];
 
 // 创建路由器实例

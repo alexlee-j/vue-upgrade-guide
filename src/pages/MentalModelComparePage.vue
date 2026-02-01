@@ -42,7 +42,7 @@
         </div>
         
         <div v-if="comparison.exampleCode" class="code-comparison">
-          <CodeCompare 
+          <LogicFlowCodeCompare 
             :title="`${comparison.title} 代码示例`"
             :vue2Code="comparison.exampleCode.vue2"
             :vue3Code="comparison.exampleCode.vue3"
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { mentalModelComparisons } from '@/data/mentalModel';
-import CodeCompare from '@/components/shared/CodeCompare.vue';
+import LogicFlowCodeCompare from '@/components/shared/LogicFlowCodeCompare.vue';
 
 const comparisons = mentalModelComparisons;
 

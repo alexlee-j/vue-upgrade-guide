@@ -1,6 +1,16 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-section">
+      <h3>负责人快速导航</h3>
+      <ul class="nav-list">
+        <li><router-link to="/decision-simulator" class="nav-link">决策模拟器</router-link></li>
+        <li><router-link to="/risk-assessment" class="nav-link">风险清单</router-link></li>
+        <li><router-link to="/training-plan" class="nav-link">培训计划</router-link></li>
+        <li><router-link to="/hybrid-config" class="nav-link">混合配置</router-link></li>
+      </ul>
+    </div>
+    
+    <div class="sidebar-section">
       <h3>升级路径</h3>
       <ul class="nav-list">
         <li><router-link to="/introduction" class="nav-link">介绍</router-link></li>
