@@ -1,180 +1,197 @@
-import { ModelComparison } from '../types';
+import { MentalModelComparison } from '@/types/components';
 
-export const mentalModelComparisons: ModelComparison[] = [
+export const mentalModelComparisons: MentalModelComparison[] = [
   {
-    aspect: '组件组织',
-    vue2: {
-      concept: 'Options API - 按选项类型组织',
-      code: `export default {
-  name: 'Counter',
+    id: 'reactivity',
+    title: '响应性系统',
+    vue2Approach: '基于 Object.defineProperty 的 getter/setter 实现响应性，只能检测对象属性的变化，对新增或删除属性支持有限。',
+    vue3Approach: '基于 Proxy 的全新响应性系统，可以拦截更多对象操作，支持动态添加/删除属性，性能更好。',
+    benefits: [
+      '更好的性能表现',
+      '更完整的拦截能力',
+      '更好的 TypeScript 支持',
+      '支持响应性转换'
+    ],
+    challenges: [
+      'Proxy 不支持 IE11',
+      '某些特定场景下需要调整思维模式',
+      '深层嵌套对象的处理方式略有不同'
+    ],
+    migrationTips: [
+      '了解 ref 和 reactive 的区别及适用场景',
+      '熟悉新的响应性 API 如 toRefs、shallowRef 等',
+      '注意在模板中的使用差异（可能需要 .value）'
+    ],
+    exampleCode: {
+      vue2: `
+// Vue 2
+export default {
   data() {
     return {
       count: 0
-    }
-  },
-  computed: {
-    doubleCount() {
-      return this.count * 2
     }
   },
   methods: {
     increment() {
       this.count++
     }
-  },
-  watch: {
-    count(newVal) {
-      console.log('Count changed:', newVal)
-    }
   }
 }`,
-      thinking: '按照选项类型（data/methods/computed/watch）垂直切分代码，同一业务逻辑被分散到不同区域。'
-    },
-    vue3: {
-      concept: 'Composition API - 按功能逻辑组织',
-      code: `import { ref, computed, watch } from 'vue'
+      vue3: `
+// Vue 3
+import { ref } from 'vue'
 
 export default {
-  name: 'Counter',
   setup() {
-    // 计数器逻辑
     const count = ref(0)
-    const doubleCount = computed(() => count.value * 2)
-    const increment = () => count.value++
-
-    // 监听器
-    watch(count, (newVal) => {
-      console.log('Count changed:', newVal)
-    })
-
+    
+    const increment = () => {
+      count.value++
+    }
+    
     return {
       count,
-      doubleCount,
       increment
     }
-  },
-}`,
-      thinking: '按照业务逻辑（功能模块）水平切分代码，相关功能集中在一起，便于理解和维护。'
-    },
-    leaderInsight: `
-**决策点：**
-- 小型组件：Options API 依然清晰简洁，无需强制迁移
-- 复杂业务：Composition API 显著提升可维护性和代码理解成本
-- 团队规范：建议统一风格，避免两种 API 混用造成混乱
-- 学习曲线：团队需要时间适应 Composition API 的思维方式
-    `
-  },
-  {
-    aspect: '响应式系统',
-    vue2: {
-      concept: 'Object.defineProperty - 属性劫持',
-      code: `// Vue 2 响应式限制
-data() {
-  return {
-    obj: { a: 1 },
-    arr: [1, 2, 3]
   }
-},
-methods: {
-  // 无法检测到
-  problematic() {
-    this.obj.newProp = 'test' // ❌ 无响应
-    this.arr[0] = 'new' // ⚠️ 部分响应
-    this.arr.length = 0 // ❌ 无响应
-  }
-}`,
-      thinking: '无法检测属性的动态添加/删除，数组索引修改有限支持，初始化性能较差。'
-    },
-    vue3: {
-      concept: 'Proxy - 对象代理',
-      code: `import { reactive } from 'vue'
-
-// Vue 3 完全支持
-const obj = reactive({ a: 1 })
-const arr = reactive([1, 2, 3])
-
-// 完全响应式
-obj.newProp = 'test' // ✅ 响应
-arr[0] = 'new' // ✅ 响应
-arr.length = 0 // ✅ 响应
-delete obj.a // ✅ 响应
-
-// 更好的性能
-// 惰性代理，按需响应`,
-      thinking: '支持动态属性操作，性能更优，支持 Map/Set 等数据结构。'
-    },
-    leaderInsight: `
-**决策点：**
-- 性能提升：Proxy 实现的响应式系统性能更优
-- 功能增强：支持动态属性添加/删除，处理 Map/Set 等
-- 兼容性：大部分现有代码无需改动
-- 学习成本：底层变化，但API使用相似
-    `
-  },
-  {
-    aspect: '逻辑复用',
-    vue2: {
-      concept: 'Mixins - 属性混入',
-      code: `// Vue 2 Mixin
-const counterMixin = {
-  data() {
-    return {
-      count: 0
+}`
     }
   },
-  computed: {
-    doubleCount() {
-      return this.count * 2
+  {
+    id: 'component-composition',
+    title: '组件组合逻辑',
+    vue2Approach: '通过 mixins、extends 等方式进行逻辑复用，存在命名冲突和隐式依赖问题。',
+    vue3Approach: '引入 Composition API，允许开发者按功能而非选项组织代码，解决命名冲突问题。',
+    benefits: [
+      '更好的逻辑组织',
+      '更清晰的代码结构',
+      '消除命名冲突',
+      '更好的类型推导'
+    ],
+    challenges: [
+      '学习新的编程范式',
+      '需要重构现有的 mixin 代码',
+      '可能增加初期的学习曲线'
+    ],
+    migrationTips: [
+      '逐步将 mixins 转换为 Composables',
+      '利用 Composition API 重构复杂组件',
+      '建立新的代码组织规范'
+    ],
+    exampleCode: {
+      vue2: `
+// Vue 2 Mixin
+const myMixin = {
+  data() {
+    return {
+      message: 'Hello'
     }
   },
   methods: {
-    increment() {
-      this.count++
+    greet() {
+      console.log(this.message)
     }
   }
 }
 
-// 使用
 export default {
-  mixins: [counterMixin],
-  // ...
+  mixins: [myMixin],
+  mounted() {
+    this.greet()
+  }
 }`,
-      thinking: '通过 mixins 实现逻辑复用，但存在命名冲突、作用域不明确等问题。'
-    },
-    vue3: {
-      concept: 'Composables - 函数式复用',
-      code: `// Vue 3 Composable
-import { ref, computed } from 'vue'
+      vue3: `
+// Vue 3 Composable
+import { ref } from 'vue'
 
-export function useCounter(initialValue = 0) {
-  const count = ref(initialValue)
-  const doubleCount = computed(() => count.value * 2)
-  const increment = () => count.value++
-  const decrement = () => count.value--
+export function useMessaging() {
+  const message = ref('Hello')
+  
+  const greet = () => {
+    console.log(message.value)
+  }
   
   return {
-    count,
-    doubleCount,
-    increment,
-    decrement
+    message,
+    greet
   }
 }
 
-// 使用
+// 在组件中使用
 export default {
   setup() {
-    const { count, increment, doubleCount } = useCounter(0)
-    return { count, increment, doubleCount }
+    const { message, greet } = useMessaging()
+    
+    return {
+      message,
+      greet
+    }
+  }
+}`
+    }
+  },
+  {
+    id: 'typescript-integration',
+    title: 'TypeScript 集成',
+    vue2Approach: 'TypeScript 支持有限，需要使用 vue-class-component 或装饰器，类型推导不够完善。',
+    vue3Approach: '原生支持 TypeScript，提供了更好的类型推导和类型安全，与 Composition API 完美结合。',
+    benefits: [
+      '更好的类型安全',
+      '更准确的类型推导',
+      '更好的 IDE 支持',
+      '更少的运行时错误'
+    ],
+    challenges: [
+      '需要额外的类型定义知识',
+      '初期设置可能较复杂',
+      '某些动态特性需要特殊处理'
+    ],
+    migrationTips: [
+      '逐步添加类型定义',
+      '使用 Vue 3 的类型定义工具',
+      '确保类型系统的正确配置'
+    ],
+    exampleCode: {
+      vue2: `
+// Vue 2 with TypeScript (class-style)
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class MyComponent extends Vue {
+  message: string = 'Hello'
+  
+  get reversedMessage(): string {
+    return this.message.split('').reverse().join('')
+  }
+  
+  greet(): void {
+    console.log(this.reversedMessage)
   }
 }`,
-      thinking: '通过函数式方式实现逻辑复用，更灵活、更明确的作用域。'
-    },
-    leaderInsight: `
-**决策点：**
-- 可维护性：Composables 提供更清晰的逻辑复用方式
-- 类型安全：TypeScript 支持更好
-- 调试友好：更容易追踪数据流向
-- 团队规范：建议逐步将 mixins 迁移为 composables
-    `
+      vue3: `
+// Vue 3 with TypeScript (Composition API)
+import { defineComponent, ref, computed } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const message = ref<string>('Hello')
+    
+    const reversedMessage = computed<string>(() => {
+      return message.value.split('').reverse().join('')
+    })
+    
+    const greet = (): void => {
+      console.log(reversedMessage.value)
+    }
+    
+    return {
+      message,
+      reversedMessage,
+      greet
+    }
+  }
+})`
+    }
   }
 ];
