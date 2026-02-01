@@ -27,6 +27,8 @@
         <li><router-link to="/reactivity" class="nav-link">响应性系统</router-link></li>
         <li><router-link to="/typescript" class="nav-link">TypeScript 集成</router-link></li>
         <li><router-link to="/performance" class="nav-link">性能优化</router-link></li>
+        <li><router-link to="/compare" class="nav-link">心智模型对比</router-link></li>
+        <li><router-link to="/api-mixing-risks" class="nav-link">API混用风险</router-link></li>
       </ul>
     </div>
     

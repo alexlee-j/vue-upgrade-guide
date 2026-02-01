@@ -26,78 +26,92 @@
     </div>
     
     <div class="code-container">
-      <div v-show="activeVersion === 'vue2'" class="code-block">
-        <h4>Vue 2 语法 - Options API</h4>
-        <div class="code-wrapper">
-          <pre><code class="language-javascript" ref="vue2CodeRef">{{ vue2Code }}</code></pre>
-          <svg 
-            v-if="showAnimation && activeVersion === 'vue2'" 
-            class="animation-overlay" 
-            ref="vue2SvgRef"
-            :viewBox="svgViewBox"
-            preserveAspectRatio="none"
-          >
-            <!-- Vue2 逻辑流向动画 -->
-            <g v-if="currentStep >= 1">
-              <circle cx="100" cy="80" r="5" fill="#ff6b6b" class="animated-circle" />
-              <text x="110" y="85" fill="#ff6b6b" font-size="12" font-family="monospace">data</text>
-            </g>
-            <g v-if="currentStep >= 2">
-              <circle cx="100" cy="120" r="5" fill="#ff6b6b" class="animated-circle" />
-              <text x="110" y="125" fill="#ff6b6b" font-size="12" font-family="monospace">computed</text>
-            </g>
-            <g v-if="currentStep >= 3">
-              <circle cx="100" cy="160" r="5" fill="#ff6b6b" class="animated-circle" />
-              <text x="110" y="165" fill="#ff6b6b" font-size="12" font-family="monospace">methods</text>
-            </g>
-            <g v-if="currentStep >= 4">
-              <line x1="100" y1="80" x2="100" y2="160" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,5" class="animated-line" />
-              <text x="120" y="110" fill="#ff6b6b" font-size="12" font-family="monospace">逻辑碎片化</text>
-            </g>
-          </svg>
+      <div v-if="!showBoth" class="single-view">
+        <div v-show="activeVersion === 'vue2'" class="code-block">
+          <h4>Vue 2 语法 - Options API</h4>
+          <div class="code-wrapper">
+            <SimpleCodeBlock 
+              v-if="showAnimation" 
+              :code="vue2Code" 
+              language="javascript" 
+              ref="vue2CodeRef"
+            />
+            <pre v-else><code class="language-javascript" ref="vue2CodeRef">{{ vue2Code }}</code></pre>
+            <svg 
+              v-if="showAnimation && activeVersion === 'vue2'" 
+              class="animation-overlay" 
+              ref="vue2SvgRef"
+              :viewBox="svgViewBox"
+              preserveAspectRatio="none"
+            >
+              <!-- Vue2 逻辑流向动画 -->
+              <g v-if="currentStep >= 1">
+                <circle cx="100" cy="80" r="5" fill="#ff6b6b" class="animated-circle" />
+                <text x="110" y="85" fill="#ff6b6b" font-size="12" font-family="monospace">data</text>
+              </g>
+              <g v-if="currentStep >= 2">
+                <circle cx="100" cy="120" r="5" fill="#ff6b6b" class="animated-circle" />
+                <text x="110" y="125" fill="#ff6b6b" font-size="12" font-family="monospace">computed</text>
+              </g>
+              <g v-if="currentStep >= 3">
+                <circle cx="100" cy="160" r="5" fill="#ff6b6b" class="animated-circle" />
+                <text x="110" y="165" fill="#ff6b6b" font-size="12" font-family="monospace">methods</text>
+              </g>
+              <g v-if="currentStep >= 4">
+                <line x1="100" y1="80" x2="100" y2="160" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,5" class="animated-line" />
+                <text x="120" y="110" fill="#ff6b6b" font-size="12" font-family="monospace">逻辑碎片化</text>
+              </g>
+            </svg>
+          </div>
         </div>
-      </div>
-      
-      <div v-show="activeVersion === 'vue3'" class="code-block">
-        <h4>Vue 3 语法 - Composition API</h4>
-        <div class="code-wrapper">
-          <pre><code class="language-javascript" ref="vue3CodeRef">{{ vue3Code }}</code></pre>
-          <svg 
-            v-if="showAnimation && activeVersion === 'vue3'" 
-            class="animation-overlay" 
-            ref="vue3SvgRef"
-            :viewBox="svgViewBox"
-            preserveAspectRatio="none"
-          >
-            <!-- Vue3 逻辑流向动画 -->
-            <g v-if="currentStep >= 1">
-              <circle cx="100" cy="100" r="5" fill="#4ecdc4" class="animated-circle" />
-              <text x="110" y="105" fill="#4ecdc4" font-size="12" font-family="monospace">ref</text>
-            </g>
-            <g v-if="currentStep >= 2">
-              <circle cx="100" cy="120" r="5" fill="#4ecdc4" class="animated-circle" />
-              <text x="110" y="125" fill="#4ecdc4" font-size="12" font-family="monospace">computed</text>
-            </g>
-            <g v-if="currentStep >= 3">
-              <circle cx="100" cy="140" r="5" fill="#4ecdc4" class="animated-circle" />
-              <text x="110" y="145" fill="#4ecdc4" font-size="12" font-family="monospace">function</text>
-            </g>
-            <g v-if="currentStep >= 4">
-              <line x1="100" y1="100" x2="100" y2="140" stroke="#4ecdc4" stroke-width="2" class="animated-line" />
-              <text x="120" y="130" fill="#4ecdc4" font-size="12" font-family="monospace">逻辑聚合</text>
-            </g>
-          </svg>
+        
+        <div v-show="activeVersion === 'vue3'" class="code-block">
+          <h4>Vue 3 语法 - Composition API</h4>
+          <div class="code-wrapper">
+            <SimpleCodeBlock 
+              v-if="showAnimation" 
+              :code="vue3Code" 
+              language="javascript" 
+              ref="vue3CodeRef"
+            />
+            <pre v-else><code class="language-javascript" ref="vue3CodeRef">{{ vue3Code }}</code></pre>
+            <svg 
+              v-if="showAnimation && activeVersion === 'vue3'" 
+              class="animation-overlay" 
+              ref="vue3SvgRef"
+              :viewBox="svgViewBox"
+              preserveAspectRatio="none"
+            >
+              <!-- Vue3 逻辑流向动画 -->
+              <g v-if="currentStep >= 1">
+                <circle cx="100" cy="100" r="5" fill="#4ecdc4" class="animated-circle" />
+                <text x="110" y="105" fill="#4ecdc4" font-size="12" font-family="monospace">ref</text>
+              </g>
+              <g v-if="currentStep >= 2">
+                <circle cx="100" cy="120" r="5" fill="#4ecdc4" class="animated-circle" />
+                <text x="110" y="125" fill="#4ecdc4" font-size="12" font-family="monospace">computed</text>
+              </g>
+              <g v-if="currentStep >= 3">
+                <circle cx="100" cy="140" r="5" fill="#4ecdc4" class="animated-circle" />
+                <text x="110" y="145" fill="#4ecdc4" font-size="12" font-family="monospace">function</text>
+              </g>
+              <g v-if="currentStep >= 4">
+                <line x1="100" y1="100" x2="100" y2="140" stroke="#4ecdc4" stroke-width="2" class="animated-line" />
+                <text x="120" y="130" fill="#4ecdc4" font-size="12" font-family="monospace">逻辑聚合</text>
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
       
       <div v-if="showBoth" class="side-by-side">
         <div class="vue2-column">
           <h4>Vue 2 - Options API</h4>
-          <pre><code class="language-javascript">{{ vue2Code }}</code></pre>
+          <SimpleCodeBlock :code="vue2Code" language="javascript" />
         </div>
         <div class="vue3-column">
           <h4>Vue 3 - Composition API</h4>
-          <pre><code class="language-javascript">{{ vue3Code }}</code></pre>
+          <SimpleCodeBlock :code="vue3Code" language="javascript" />
         </div>
       </div>
     </div>
@@ -155,8 +169,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useCodeHighlight } from '@/composables/useCodeHighlight';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import SimpleCodeBlock from './SimpleCodeBlock.vue';
 
 interface Props {
   title: string;
@@ -166,8 +180,6 @@ interface Props {
 
 const props = defineProps<Props>();
 const emit = defineEmits(['copied']);
-
-const { highlightCode } = useCodeHighlight();
 
 const activeVersion = ref<'vue2' | 'vue3' | null>(null);
 const showBoth = ref(false);
@@ -226,6 +238,11 @@ const copyCode = async () => {
     emit('copied', '复制失败');
   }
 };
+
+onMounted(async () => {
+  // 确保代码高亮正确应用
+  await nextTick();
+});
 
 onUnmounted(() => {
   if (animationInterval.value) {

@@ -25,6 +25,7 @@ import DecisionSimulatorPage from './pages/DecisionSimulatorPage.vue';
 import RiskAssessmentPage from './pages/RiskAssessmentPage.vue';
 import TrainingPlanPage from './pages/TrainingPlanPage.vue';
 import HybridConfigurationPage from './pages/HybridConfigurationPage.vue';
+import APIMixingRisksPage from './pages/APIMixingRisksPage.vue';
 
 // 创建路由
 const routes = [
@@ -45,6 +46,7 @@ const routes = [
   { path: '/reactivity', component: ReactivityPage, meta: { title: '响应性系统 - Vue 3 升级指南' } },
   { path: '/typescript', component: TypescriptPage, meta: { title: 'TypeScript 集成 - Vue 3 升级指南' } },
   { path: '/performance', component: PerformancePage, meta: { title: '性能优化 - Vue 3 升级指南' } },
+  { path: '/api-mixing-risks', component: APIMixingRisksPage, meta: { title: 'API混用风险 - Vue 3 升级指南' } },
   { path: '/checklist', component: ChecklistPage, meta: { title: '检查清单 - Vue 3 升级指南' } },
   { path: '/skill-matrix', component: SkillMatrixPage, meta: { title: '技能矩阵 - Vue 3 升级指南' } },
   { path: '/decision-simulator', component: DecisionSimulatorPage, meta: { title: '决策模拟器 - Vue 3 升级指南' } },
