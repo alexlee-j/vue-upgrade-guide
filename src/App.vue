@@ -18,10 +18,15 @@ import Footer from './components/layout/Footer.vue';
 </script>
 
 <style>
+@import './assets/styles/theme.css';
+
 #app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .main-container {
@@ -33,8 +38,18 @@ import Footer from './components/layout/Footer.vue';
   flex: 1;
   margin-left: 250px; /* 留出侧边栏空间 */
   padding: 2rem;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   width: calc(100% - 250px);
+  transition: all 0.3s ease;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
 }
 </style>

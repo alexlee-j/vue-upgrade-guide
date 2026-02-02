@@ -1,4 +1,4 @@
-/* 代码高亮样式 */
+/* 代码高亮样式 - 现代编辑器风格 */
 .token.comment {
   color: #6a9955;
   font-style: italic;
@@ -56,10 +56,6 @@
   color: #d7ba7d;
 }
 
-.token.property {
-  color: #9cdcfe;
-}
-
 .token.value {
   color: #ce9178;
 }
@@ -70,6 +66,116 @@
 
 .token.color {
   color: #569cd6;
+}
+
+/* 新增类型 */
+.token.type {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+.token.interface {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+.token.directive {
+  color: #c586c0;
+  font-weight: bold;
+}
+
+.token.namespace {
+  color: #569cd6;
+}
+
+.token.class {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+.token.decorator {
+  color: #c586c0;
+}
+
+/* 暗色主题下的优化 */
+.dark .token.comment {
+  color: #6a9955;
+}
+
+.dark .token.tag {
+  color: #569cd6;
+}
+
+.dark .token.attr-name {
+  color: #9cdcfe;
+}
+
+.dark .token.attr-value {
+  color: #ce9178;
+}
+
+.dark .token.keyword {
+  color: #569cd6;
+}
+
+.dark .token.boolean {
+  color: #569cd6;
+}
+
+.dark .token.number {
+  color: #b5cea8;
+}
+
+.dark .token.string {
+  color: #ce9178;
+}
+
+.dark .token.function {
+  color: #dcdcaa;
+}
+
+.dark .token.property {
+  color: #9cdcfe;
+}
+
+.dark .token.selector {
+  color: #d7ba7d;
+}
+
+.dark .token.value {
+  color: #ce9178;
+}
+
+.dark .token.unit {
+  color: #b5cea8;
+}
+
+.dark .token.color {
+  color: #569cd6;
+}
+
+.dark .token.type {
+  color: #4ec9b0;
+}
+
+.dark .token.interface {
+  color: #4ec9b0;
+}
+
+.dark .token.directive {
+  color: #c586c0;
+}
+
+.dark .token.namespace {
+  color: #569cd6;
+}
+
+.dark .token.class {
+  color: #4ec9b0;
+}
+
+.dark .token.decorator {
+  color: #c586c0;
 }
 
 /* 代码块样式 */

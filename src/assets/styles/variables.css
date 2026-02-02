@@ -1,20 +1,71 @@
 :root {
   --primary: #42b983;
   --primary-dark: #359c6d;
+  --primary-light: #67c798;
   --secondary: #666;
   --light: #f8f9fa;
   --dark: #343a40;
   --danger: #dc3545;
   --warning: #ffc107;
   --success: #28a745;
+  --info: #17a2b8;
+  
+  /* 主题颜色 */
   --color-bg: #ffffff;
   --color-surface: #f8f9fa;
   --color-text: #2c3e50;
   --color-text-secondary: #6c757d;
   --color-border: #dee2e6;
-  --color-code-bg: #1e1e1e;
+  --color-code-bg: #f8f9fa;
+  --color-code-text: #2c3e50;
   --color-hover: #e9ecef;
+  
+  /* 阴影和过渡 */
   --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --box-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
   --transition: all 0.3s ease;
+  --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.4s ease;
+  
+  /* 间距 */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* 字体大小 */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  
+  /* 行高 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+/* 暗色主题变量 */
+.dark {
+  --color-bg: #1a1a1a;
+  --color-surface: #2d3748;
+  --color-text: #e2e8f0;
+  --color-text-secondary: #a0aec0;
+  --color-border: #4a5568;
+  --color-code-bg: #1e1e1e;
+  --color-code-text: #d4d4d4;
+  --color-hover: #4a5568;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.4);
+  --box-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
