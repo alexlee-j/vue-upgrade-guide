@@ -3,10 +3,16 @@
     <div class="code-block-header">
       <span class="language">{{ language }}</span>
       <button @click="copyCode" class="copy-btn" :class="{ copied: copied }">
-        {{ copied ? '已复制!' : '复制' }}
+        <span class="copy-icon">📋</span>
+        <span class="copy-text">{{ copied ? '已复制!' : '复制' }}</span>
       </button>
     </div>
-    <pre class="code-block"><code v-html="highlightedCode"></code></pre>
+    <div class="code-content">
+      <div class="line-numbers" v-if="showLineNumbers">
+        <span v-for="i in lineCount" :key="i" class="line-number">{{ i }}</span>
+      </div>
+      <pre class="code-block" :class="{ 'with-line-numbers': showLineNumbers }"><code v-html="highlightedCode"></code></pre>
+    </div>
   </div>
 </template>
 
@@ -17,14 +23,17 @@ import { useCodeHighlight } from '@/composables/useCodeHighlight';
 interface Props {
   code: string;
   language?: string;
+  showLineNumbers?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  language: 'javascript'
+  language: 'javascript',
+  showLineNumbers: true
 });
 
 const { highlightCode } = useCodeHighlight();
 const highlightedCode = computed(() => highlightCode(props.code, props.language));
+const lineCount = computed(() => props.code.split('\n').length);
 
 const copied = ref(false);
 
@@ -63,6 +72,7 @@ const copyCode = async () => {
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
   transition: var(--transition);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
 }
 
 .language {
@@ -71,6 +81,7 @@ const copyCode = async () => {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .copy-btn {
@@ -83,15 +94,50 @@ const copyCode = async () => {
   cursor: pointer;
   transition: var(--transition-fast);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .copy-btn:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
+  box-shadow: var(--box-shadow);
 }
 
 .copy-btn.copied {
   background: var(--success);
+}
+
+.copy-icon {
+  font-size: var(--font-size-sm);
+}
+
+.copy-text {
+  transition: var(--transition);
+}
+
+.code-content {
+  display: flex;
+  overflow: hidden;
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+}
+
+.line-numbers {
+  background: #1e1e1e;
+  padding: var(--spacing-md) var(--spacing-xs);
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid var(--color-border);
+}
+
+.line-number {
+  display: block;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--gray-500);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  transition: var(--transition);
 }
 
 .code-block {
@@ -105,7 +151,11 @@ const copyCode = async () => {
   line-height: var(--line-height-normal);
   white-space: pre;
   transition: var(--transition);
-  border-radius: var(--border-radius-sm);
+  flex: 1;
+}
+
+.code-block.with-line-numbers {
+  border-radius: 0 0 var(--border-radius-sm) 0;
 }
 
 /* 确保代码高亮在两种主题下都清晰可见 */

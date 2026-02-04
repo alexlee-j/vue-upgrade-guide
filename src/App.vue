@@ -38,8 +38,6 @@ import Footer from './components/layout/Footer.vue';
   flex: 1;
   margin-left: 250px; /* 留出侧边栏空间 */
   padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
   width: calc(100% - 250px);
   transition: all 0.3s ease;
 }

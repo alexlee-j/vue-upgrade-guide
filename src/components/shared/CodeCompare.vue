@@ -23,20 +23,32 @@
         <div class="code-block-header">
           <h4>Vue 2 语法</h4>
           <button @click="copyCode('vue2')" class="copy-btn" :class="{ copied: copiedVersion === 'vue2' }">
-            {{ copiedVersion === 'vue2' ? '已复制!' : '复制' }}
+            <span class="copy-icon">📋</span>
+            <span class="copy-text">{{ copiedVersion === 'vue2' ? '已复制!' : '复制' }}</span>
           </button>
         </div>
-        <pre class="code-block"><code v-html="highlightedVue2Code"></code></pre>
+        <div class="code-content">
+          <div class="line-numbers">
+            <span v-for="i in vue2LineCount" :key="i" class="line-number">{{ i }}</span>
+          </div>
+          <pre class="code-block with-line-numbers"><code v-html="highlightedVue2Code"></code></pre>
+        </div>
       </div>
       
       <div v-show="activeVersion === 'vue3'" class="code-block-wrapper">
         <div class="code-block-header">
           <h4>Vue 3 语法</h4>
           <button @click="copyCode('vue3')" class="copy-btn" :class="{ copied: copiedVersion === 'vue3' }">
-            {{ copiedVersion === 'vue3' ? '已复制!' : '复制' }}
+            <span class="copy-icon">📋</span>
+            <span class="copy-text">{{ copiedVersion === 'vue3' ? '已复制!' : '复制' }}</span>
           </button>
         </div>
-        <pre class="code-block"><code v-html="highlightedVue3Code"></code></pre>
+        <div class="code-content">
+          <div class="line-numbers">
+            <span v-for="i in vue3LineCount" :key="i" class="line-number">{{ i }}</span>
+          </div>
+          <pre class="code-block with-line-numbers"><code v-html="highlightedVue3Code"></code></pre>
+        </div>
       </div>
       
       <div v-if="showBoth" class="side-by-side">
@@ -44,19 +56,31 @@
           <div class="code-block-header">
             <h4>Vue 2</h4>
             <button @click="copyCode('vue2')" class="copy-btn" :class="{ copied: copiedVersion === 'vue2' }">
-              {{ copiedVersion === 'vue2' ? '已复制!' : '复制' }}
+              <span class="copy-icon">📋</span>
+              <span class="copy-text">{{ copiedVersion === 'vue2' ? '已复制!' : '复制' }}</span>
             </button>
           </div>
-          <pre class="code-block"><code v-html="highlightedVue2Code"></code></pre>
+          <div class="code-content">
+            <div class="line-numbers">
+              <span v-for="i in vue2LineCount" :key="i" class="line-number">{{ i }}</span>
+            </div>
+            <pre class="code-block with-line-numbers"><code v-html="highlightedVue2Code"></code></pre>
+          </div>
         </div>
         <div class="vue3-column">
           <div class="code-block-header">
             <h4>Vue 3</h4>
             <button @click="copyCode('vue3')" class="copy-btn" :class="{ copied: copiedVersion === 'vue3' }">
-              {{ copiedVersion === 'vue3' ? '已复制!' : '复制' }}
+              <span class="copy-icon">📋</span>
+              <span class="copy-text">{{ copiedVersion === 'vue3' ? '已复制!' : '复制' }}</span>
             </button>
           </div>
-          <pre class="code-block"><code v-html="highlightedVue3Code"></code></pre>
+          <div class="code-content">
+            <div class="line-numbers">
+              <span v-for="i in vue3LineCount" :key="i" class="line-number">{{ i }}</span>
+            </div>
+            <pre class="code-block with-line-numbers"><code v-html="highlightedVue3Code"></code></pre>
+          </div>
         </div>
       </div>
     </div>
@@ -90,6 +114,9 @@ const { highlightCode } = useCodeHighlight();
 
 const highlightedVue2Code = computed(() => highlightCode(props.vue2Code, 'javascript'));
 const highlightedVue3Code = computed(() => highlightCode(props.vue3Code, 'javascript'));
+
+const vue2LineCount = computed(() => props.vue2Code.split('\n').length);
+const vue3LineCount = computed(() => props.vue3Code.split('\n').length);
 
 const toggleSideBySide = () => {
   showBoth.value = !showBoth.value;
@@ -234,6 +261,29 @@ const copyCode = async (version: 'vue2' | 'vue3') => {
   background: var(--success);
 }
 
+.code-content {
+  display: flex;
+  overflow: hidden;
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+}
+
+.line-numbers {
+  background: #1e1e1e;
+  padding: var(--spacing-md) var(--spacing-xs);
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid var(--color-border);
+}
+
+.line-number {
+  display: block;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--gray-500);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  transition: var(--transition);
+}
+
 .code-block {
   background: #2d2d2d;
   color: #d4d4d4;
@@ -245,7 +295,11 @@ const copyCode = async (version: 'vue2' | 'vue3') => {
   line-height: var(--line-height-normal);
   white-space: pre;
   transition: var(--transition);
-  border-radius: var(--border-radius-sm);
+  flex: 1;
+}
+
+.code-block.with-line-numbers {
+  border-radius: 0 0 var(--border-radius-sm) 0;
 }
 
 .side-by-side {
